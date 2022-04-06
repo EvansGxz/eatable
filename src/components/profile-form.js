@@ -13,7 +13,6 @@ const StyledForm = styled.form`
 
 export default function ProfileForm() {
   const { user, update } = useAuth();
-  const { signup } = useAuth();
   const [form, setForm] = useState({
     name: "",
     phone: "",
