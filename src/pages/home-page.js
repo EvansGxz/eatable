@@ -8,6 +8,7 @@ import SearchForm from "../components/search-form";
 import HeaderCategories from "../components/header-categories";
 import Dishes from "../components/dishes";
 import { styled } from "@emotion/styled";
+import CartPage from "./cart-page";
 
 function HomePage() {
   const navigate = useNavigate();
@@ -46,7 +47,7 @@ function HomePage() {
   return (
     <div>
       <h1> HOME PAGE</h1>
-
+      <CartPage />
       <SearchForm store={store} onEvent={eventChangeCategory} />
 
       {store.query ? (
