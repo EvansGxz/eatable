@@ -2,8 +2,6 @@ import FoodCard from "../components/cards/food-card";
 import { useAuth } from "../context/auth-context";
 import { useEffect } from "react";
 
-import CardItem from "../components/cardItem/card-item";
-
 function HomePage() {
   const { getProducts, products } = useAuth();
 
