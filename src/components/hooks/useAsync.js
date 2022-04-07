@@ -16,6 +16,7 @@ export function useAsync() {
     promise
       .then((data) => {
         let byCategories = {};
+        data.sort((a, b) => a.category.localeCompare(b.category));
 
         data.forEach((product) => {
           if (byCategories[product.category]) {

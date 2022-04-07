@@ -36,7 +36,7 @@ function AuthProvider({ children }) {
   }
 
   function handleIndexProducts() {
-    execute(indexProduct());
+    return execute(indexProduct());
   }
 
   function handleUpdateUser(userData) {
@@ -71,7 +71,6 @@ function AuthProvider({ children }) {
         getProducts: handleIndexProducts,
       }}
     >
-      {console.log("byCategories", byCategories)}
       {children}
     </AuthContext.Provider>
   );
