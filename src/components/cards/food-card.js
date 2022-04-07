@@ -43,9 +43,9 @@ const PriceDish = styled.p`
   color: ${colors.orange};
 `;
 
-export default function FoodCard({ src, name, price }) {
+export default function FoodCard({ src, name, price, onClick }) {
   return (
-    <Wrapper>
+    <Wrapper onClick={onClick}>
       <Image src={src} />
       <NameDish>{name}</NameDish>
       <PriceDish>${price / 100}</PriceDish>

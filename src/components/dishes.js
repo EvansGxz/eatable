@@ -1,18 +1,28 @@
 import C from "../components/style-component/index";
 import FoodCard from "./cards/index";
+import { Link } from "react-router-dom";
 
-function Dishes({ data, byCategories }) {
+function Dishes({ data, byCategories, onClick }) {
   return (
     <C.ContainerDishes>
       {byCategories ? (
         (data || byCategories["italian"]).map((product) => {
           return (
-            <FoodCard
+            <Link
+              to={{
+                pathname: "/dish",
+                search: `?name=${product.name}&id=${product.id}`,
+              }}
+              style={{ textDecoration: "none" }}
               key={product.id}
-              src={product.picture_url}
-              name={product.name}
-              price={product.price}
-            />
+            >
+              <FoodCard
+                src={product.picture_url}
+                name={product.name}
+                price={product.price}
+                // onClick={() => onClick(product.name, product.id)}
+              />
+            </Link>
           );
         })
       ) : (
