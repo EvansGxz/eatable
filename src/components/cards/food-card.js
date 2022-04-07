@@ -48,7 +48,7 @@ export default function FoodCard({ src, name, price }) {
     <Wrapper>
       <Image src={src} />
       <NameDish>{name}</NameDish>
-      <PriceDish>${price}</PriceDish>
+      <PriceDish>${price / 100}</PriceDish>
     </Wrapper>
   );
 }

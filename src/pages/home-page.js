@@ -1,31 +1,44 @@
 import FoodCard from "../components/cards/food-card";
 import { useAuth } from "../context/auth-context";
-import { useEffect } from "react";
-import { Counter } from "../components/counter/counter";
+import { useEffect, useState } from "react";
+import { useLocalStorage } from "../hooks";
+import C from "../components/style-component/index";
+import SearchForm from "../components/search-form";
+import HeaderCategories from "../components/header-categories";
+import Dishes from "../components/dishes";
 
 function HomePage() {
-  const { getProducts, products } = useAuth();
+  const { getProducts, products, byCategories } = useAuth();
+  const [store, setStore] = useLocalStorage(
+    { currentCategory: null, query: null },
+    "info"
+  );
+  const [data, setData] = useState(null);
 
   useEffect(() => {
     getProducts();
   }, []);
 
+  useEffect(() => {
+    if (!byCategories) return;
+
+    setData(byCategories[store.currentCategory]);
+  }, [store]);
+
+  function eventChangeCategory(key, value) {
+    setStore({ ...store, [key]: value });
+  }
+
   return (
     <div>
       <h1> HOME PAGE</h1>
-      <Counter
-      num={1}/>
-      <div
-        style={{
-          display: "flex",
-          gap: "1.25rem",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        {products ? (
-          products.map((product) => {
+
+      <SearchForm store={store} onEvent={eventChangeCategory} />
+
+      {store.query ? (
+        <C.ContainerDishes>
+          {products.map((product) => {
+            if (!product.name.match(store.query)) return null;
             return (
               <FoodCard
                 key={product.id}
@@ -34,11 +47,19 @@ function HomePage() {
                 price={product.price}
               />
             );
-          })
-        ) : (
-          <h2>Todavía no hay datos</h2>
-        )}
-      </div>
+          })}
+        </C.ContainerDishes>
+      ) : (
+        <div>
+          <HeaderCategories
+            store={store}
+            byCategories={byCategories}
+            onEvent={eventChangeCategory}
+          />
+
+          <Dishes data={data} byCategories={byCategories} />
+        </div>
+      )}
     </div>
   );
 }
