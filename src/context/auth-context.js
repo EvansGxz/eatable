@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAsync } from "../components/hooks/useAsync";
 import { indexProduct } from "../services/products-service";
 import { login, logout } from "../services/session-service";
 import { createUser, getUser, updateUser } from "../services/users-service";
@@ -8,8 +9,8 @@ const AuthContext = createContext();
 
 function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [products, setProducts] = useState(null);
   const navigate = useNavigate();
+  const { status, data, error, byCategories, execute } = useAsync();
 
   useEffect(() => {
     getUser()
@@ -34,11 +35,8 @@ function AuthProvider({ children }) {
     });
   }
 
-  function handleIndexProducts(userData) {
-    return indexProduct(userData).then((products) => {
-      console.log("😪", products);
-      setProducts(products);
-    });
+  function handleIndexProducts() {
+    execute(indexProduct());
   }
 
   function handleUpdateUser(userData) {
@@ -64,7 +62,8 @@ function AuthProvider({ children }) {
     <AuthContext.Provider
       value={{
         user,
-        products,
+        products: data,
+        byCategories,
         update: handleUpdateUser,
         login: handleLogin,
         signup: handleSignup,
@@ -72,6 +71,7 @@ function AuthProvider({ children }) {
         getProducts: handleIndexProducts,
       }}
     >
+      {console.log("byCategories", byCategories)}
       {children}
     </AuthContext.Provider>
   );
