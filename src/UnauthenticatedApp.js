@@ -18,7 +18,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  ${typography.head.sm}
+  ${typography.semibold.sm}
   font-weight: 600;
 `;
 

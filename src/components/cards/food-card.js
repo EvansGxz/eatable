@@ -1,4 +1,6 @@
 import styled from "@emotion/styled";
+import { typography } from "../../styles/typography";
+import { colors } from "../../styles/colors";
 // import PropTypes from "prop-types";
 
 const Wrapper = styled.div`
@@ -8,12 +10,13 @@ const Wrapper = styled.div`
   height: 13.25rem;
   border-radius: 30px;
   position: relative;
-  background-color: white;
+  background-color: ${colors.white};
   align-items: center;
   margin-top: 40px;
   padding: 100px 13px 26px 13px;
   gap: 0.75rem;
   box-shadow: 0px 30px 60px rgba(57, 57, 57, 0.1);
+  font-weight: ${typography.semibold.lg};
 `;
 
 const Image = styled.img`
@@ -26,25 +29,18 @@ const Image = styled.img`
 `;
 
 const NameDish = styled.p`
-  font-family: "Source Sans Pro";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 22px;
   line-height: 28px;
   display: flex;
   align-items: center;
   text-align: center;
-  color: #333333;
+  color: ${colors.black};
 `;
 
 const PriceDish = styled.p`
-  font-family: "Source Sans Pro";
   font-style: normal;
-  font-weight: 600;
-  font-size: 22px;
   line-height: 28px;
   text-align: center;
-  color: #fa4a0c;
+  color: ${colors.orange};
 `;
 
 export default function FoodCard({ src, name, price }) {
