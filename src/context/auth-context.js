@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { indexProduct } from "../services/products-service";
 import { login, logout } from "../services/session-service";
 import { createUser, getUser, updateUser } from "../services/users-service";
 
@@ -7,6 +8,7 @@ const AuthContext = createContext();
 
 function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [products, setProducts] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,6 +31,13 @@ function AuthProvider({ children }) {
     return createUser(userData).then((user) => {
       setUser(user);
       navigate("/profile");
+    });
+  }
+
+  function handleIndexProducts(userData) {
+    return indexProduct(userData).then((products) => {
+      console.log("😪", products);
+      setProducts(products);
     });
   }
 
@@ -55,10 +64,12 @@ function AuthProvider({ children }) {
     <AuthContext.Provider
       value={{
         user,
+        products,
         update: handleUpdateUser,
         login: handleLogin,
         signup: handleSignup,
         logout: handleLogout,
+        getProducts: handleIndexProducts,
       }}
     >
       {children}

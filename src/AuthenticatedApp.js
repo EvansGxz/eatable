@@ -6,12 +6,13 @@ import Footer from "./components/footer";
 import ProfilePage from "./pages/profile-page";
 
 const Container = styled.div`
-  display: grid;
+  display: flex;
   width: 480px;
-  background-color: ${colors.gray[100]};
-  height: 100vh;
+  background-color: ${colors.ligthGray};
   margin: 0 auto;
   border-radius: 30px;
+  justify-content: center;
+  align-content: center;
 `;
 
 const MainContainer = styled.main`
