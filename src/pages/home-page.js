@@ -1,6 +1,7 @@
 import FoodCard from "../components/cards/food-card";
 import { useAuth } from "../context/auth-context";
 import { useEffect } from "react";
+import { Counter } from "../components/counter/counter";
 
 function HomePage() {
   const { getProducts, products } = useAuth();
@@ -12,6 +13,8 @@ function HomePage() {
   return (
     <div>
       <h1> HOME PAGE</h1>
+      <Counter
+      num={1}/>
       <div
         style={{
           display: "flex",
