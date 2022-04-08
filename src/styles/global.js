@@ -42,12 +42,14 @@ export const reset = css`
   body {
     min-height: 100vh;
     text-rendering: optimizeSpeed;
-    line-height: 1.5;
+    line-height: 1.5rem;
   }
 
   /* A elements that don't have a class get default styles */
   a:not([class]) {
     text-decoration-skip-ink: auto;
+    color: inherit;
+    text-decoration: none;
   }
 
   /* Make images easier to work with */
