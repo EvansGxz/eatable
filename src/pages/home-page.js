@@ -1,13 +1,12 @@
 import FoodCard from "../components/cards/food-card";
 import { useAuth } from "../context/auth-context";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useLocalStorage } from "../hooks";
 import C from "../components/style-component/index";
 import SearchForm from "../components/search-form";
 import HeaderCategories from "../components/header-categories";
 import Dishes from "../components/dishes";
-import { styled } from "@emotion/styled";
 
 function HomePage() {
   const navigate = useNavigate();
@@ -45,8 +44,6 @@ function HomePage() {
 
   return (
     <div>
-      <h1> HOME PAGE</h1>
-
       <SearchForm store={store} onEvent={eventChangeCategory} />
 
       {store.query ? (
@@ -54,12 +51,11 @@ function HomePage() {
           {products.map((product) => {
             if (!product.name.match(store.query)) return null;
             return (
-              <Link
+              <C.StyledLink
                 to={{
                   pathname: "/dish",
                   search: `?name=${product.name}&id=${product.id}`,
                 }}
-                styled={{ textDecoration: "none" }}
               >
                 <FoodCard
                   key={product.id}
@@ -68,7 +64,7 @@ function HomePage() {
                   price={product.price}
                   // onClick={() => redirect(product.name, product.id)}
                 />
-              </Link>
+              </C.StyledLink>
             );
           })}
         </C.ContainerDishes>
