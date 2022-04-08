@@ -6,6 +6,8 @@ import C from "../components/style-component/index";
 import SearchForm from "../components/search-form";
 import HeaderCategories from "../components/header-categories";
 import Dishes from "../components/dishes";
+import EatableLogo from "../components/eatableLogo/eatable-logo";
+import Loading from "../components/loading";
 
 function HomePage() {
   const { getProducts, products, byCategories } = useAuth();
@@ -32,7 +34,7 @@ function HomePage() {
   return (
     <div>
       <h1> HOME PAGE</h1>
-
+      <Loading />
       <SearchForm store={store} onEvent={eventChangeCategory} />
 
       {store.query ? (
