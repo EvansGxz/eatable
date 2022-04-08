@@ -1,7 +1,6 @@
 import { BsSearch } from "react-icons/bs";
 import { AiOutlineLeft } from "react-icons/ai";
 import { colors } from "../styles/colors";
-import { typography } from "../styles";
 import { fonts } from "../styles/typography";
 
 function SearchForm({ store, onEvent }) {

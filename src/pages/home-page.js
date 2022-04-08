@@ -1,6 +1,5 @@
 import FoodCard from "../components/cards/food-card";
 import { useAuth } from "../context/auth-context";
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useLocalStorage } from "../hooks";
 import C from "../components/style-component/index";
@@ -9,7 +8,6 @@ import HeaderCategories from "../components/header-categories";
 import Dishes from "../components/dishes";
 
 function HomePage() {
-  const navigate = useNavigate();
   const { getProducts, products, byCategories } = useAuth();
   const [store, setStore] = useLocalStorage(
     { currentCategory: null, query: null },
@@ -29,17 +27,6 @@ function HomePage() {
 
   function eventChangeCategory(key, value) {
     setStore({ ...store, [key]: value });
-  }
-
-  function redirect(nameDish, idDish) {
-    console.log(
-      "%c 🚶‍♀️: redirect -> nameDish ",
-      "font-size:16px;background-color:#ed05fc;color:white;",
-      nameDish
-    );
-
-    // return navigate(`/dishes?name=${nameDish}&id=${idDish}`);
-    return navigate(`/dishes/${idDish}`);
   }
 
   return (
@@ -62,7 +49,6 @@ function HomePage() {
                   src={product.picture_url}
                   name={product.name}
                   price={product.price}
-                  // onClick={() => redirect(product.name, product.id)}
                 />
               </C.StyledLink>
             );
@@ -76,7 +62,7 @@ function HomePage() {
             onEvent={eventChangeCategory}
           />
 
-          <Dishes data={data} byCategories={byCategories} onClick={redirect} />
+          <Dishes data={data} byCategories={byCategories} />
         </div>
       )}
     </div>
