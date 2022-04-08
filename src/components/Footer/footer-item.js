@@ -6,36 +6,24 @@ import { colors } from "../../styles";
 const StyledNavLink = styled(NavLink)`
   padding: 0.5rem;
   display: flex;
-  gap: 0.75rem;
-  text-decoration: none;
   color: ${colors.gray};
-  font-weight: 500;
   align-items: center;
-  border-radius: 0.375rem;
+  border-radius: 50%;
   cursor: pointer;
-  text-decoration: none;
   &:hover {
-    background-color: ${colors.ligthGray};
-  }
-  &:focus {
-    outline: 1px solid ${colors.orange};
-  }
+    color: ${colors.DarkGray};
+  } 
   `;
 
-function FooterItem({name, icon, to}){  
+  //background-color: ${colors.ligthGray};
+function FooterItem({icon, to}){  
   return (
     <StyledNavLink
       to={to}
       style={({ isActive }) => {
         if (!isActive) return;
         return {
-          backgroundColor: colors.orange,
-          "&:hover": {
-            backgroundColor: colors.ligthGray,
-          },
-          "&:visited": {
-            color: colors.white,
-          },
+          color: colors.orange,
         };
       }}
     >

@@ -1,32 +1,35 @@
 import styled from "@emotion/styled";
-import { BiCategoryAlt } from "react-icons/bi";
-import { BsReceiptCutoff } from "react-icons/bs";
-import { GiTargeted } from "react-icons/gi";
+import { HiHome } from "react-icons/hi";
+import { BsPersonFill } from "react-icons/bs";
+import { MdHistory } from "react-icons/md";
 import FooterItem from "./footer-item";
 //import { useAuth } from "../context/auth-context";
+import { colors } from '../../styles/colors';
 
 const Wrapper = styled.div`
   display: flex;
-  gap: 50px;
+  padding: 15px 70px 30px 70px;
+  box-sizing: border-box;
   justify-content: space-between;
+  
 `;
 
+//border-top: 1px solid ${colors.DarkGray};
 
 function Footer() {
-  //const { logout } = useAuth();
 
   const navigation = [
     {
       name: "home",
       to: "/home",
-      icon: <BiCategoryAlt />,
+      icon: <HiHome size={25}/>,
     },
     {
       name: "profile",
-      icon: <BsReceiptCutoff />,
+      icon: <BsPersonFill size={25}/>,
       to: "/profile",
     },
-    { name: "history", to: "/history", icon: <GiTargeted /> },
+    { name: "history", to: "/history", icon: <MdHistory size={25}/> },
   ];
 
 

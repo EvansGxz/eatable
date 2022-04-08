@@ -30,4 +30,12 @@ export const ContainerDishes = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  overflow-y: scroll;
+  height: 70vh;
+  
+  
+  
 `;
+
+// height: 50vh;
+//height: 65vh;
