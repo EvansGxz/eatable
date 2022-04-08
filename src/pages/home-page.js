@@ -43,9 +43,9 @@ function HomePage() {
                   pathname: "/dish",
                   search: `?name=${product.name}&id=${product.id}`,
                 }}
+                key={product.id}
               >
                 <FoodCard
-                  key={product.id}
                   src={product.picture_url}
                   name={product.name}
                   price={product.price}
