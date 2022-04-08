@@ -2,7 +2,7 @@ import C from "../components/style-component/index";
 import FoodCard from "./cards/index";
 import { Link } from "react-router-dom";
 
-function Dishes({ data, byCategories, onClick }) {
+function Dishes({ data, byCategories }) {
   return (
     <C.ContainerDishes>
       {byCategories ? (
@@ -20,7 +20,6 @@ function Dishes({ data, byCategories, onClick }) {
                 src={product.picture_url}
                 name={product.name}
                 price={product.price}
-                // onClick={() => onClick(product.name, product.id)}
               />
             </Link>
           );

@@ -1,6 +1,6 @@
 export const fonts = {
   primary: `'Source Sans Pro', sans-serif`,
-  secondary: `"Lato", , sans-serif`,
+  secondary: `"Lato", sans-serif`,
 };
 
 export const typography = {
@@ -27,23 +27,23 @@ export const typography = {
       `,
   },
   semibold: {
-      xs: `
+    xs: `
         font-size: 0.875rem;
         line-height: 1.05rem;
         `,
-      sm: `
+    sm: `
         font-size: 1rem;
         line-height: 1.257rem;
         `,
-      md: `
+    md: `
         font-size: 1.125rem;
         line-height: 1.414rem;
         `,
-      lg: `
+    lg: `
         font-size: 1.375rem;
         line-height: 1.728rem;
         `,
-      xl: `
+    xl: `
         font-size: 1.75rem;
         line-height: 2.2rem;
         `,

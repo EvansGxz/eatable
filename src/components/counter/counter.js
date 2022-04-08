@@ -8,12 +8,13 @@ import { useState } from "react";
 const Wrapper = styled.div`
 background-color: ${colors.orange};
 border-radius: 30px;
-width: 52px;
-heigth: 20px;
+min-width: 52px;
+max-height: 20px;
 display: flex;
 align-items: center;
 justify-content: center;
 color: ${colors.white};
+gap: 3px;
 `
 
 export function Counter ({num}){
