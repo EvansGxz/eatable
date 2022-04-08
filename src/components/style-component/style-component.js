@@ -31,6 +31,9 @@ export const ContainerDishes = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  overflow-y: scroll;
+  height: 70vh;
+   
 `;
 
 export const Wrapper = styled.div`
@@ -92,3 +95,4 @@ export const StyledLink = styled(NavLink)`
     text-decoration: none;
   }
 `;
+

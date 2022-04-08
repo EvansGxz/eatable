@@ -61,8 +61,12 @@ function HomePage() {
             byCategories={byCategories}
             onEvent={eventChangeCategory}
           />
+          
 
-          <Dishes data={data} byCategories={byCategories} />
+          <Dishes style={{backgroundColor: "green"}} data={data} byCategories={byCategories} />
+
+          
+
         </div>
       )}
     </div>
