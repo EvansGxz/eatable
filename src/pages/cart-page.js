@@ -1,41 +1,48 @@
 import { useAuth } from "../context/auth-context";
 import { useEffect, useState } from "react";
-import Button from "../components/Button/index";
 import styled from "@emotion/styled";
+import FoodPicture from "../components/foodPicture/food-picture";
+import CardItem from "../components/card-item/cardItem";
+import { ContainerDishes } from "../components/style-component/style-component";
+import C from "../components/style-component/index";
+import { useLocalStorage } from "../hooks";
 
 function CartPage() {
-  const { getProducts, products } = useAuth();
-  const [id, setId] = useState(null);
-
+  const { getProducts, products, storeArticle, show } = useAuth();
   useEffect(() => {
-    setId(new URLSearchParams(window.location.search).get("id"));
-    getProducts();
+    const id =new URLSearchParams(window.location.search).get("id");
+    show(id);
+    
   }, []);
-
-  const Photo = styled.img`
-    width: 62px;
-    height: 62px;
-    border-radius: 50%;
-  `;
-
+  
   const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
     justify-content: center;
     align-items: center;
   `;
-  const icon =(
-  <svg width="181" height="50" viewBox="0 0 181 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-  </svg>
-  );
+  
     return (
-      <Container> 
-        <Photo src={icon} alt="" />
-        <h2>test</h2>
-        <p>$28.89</p>
+      <Container>
+        <h2>Cart</h2>
+        {JSON.parse(localStorage.getItem('storeArticle')) ? (
+          <C.ContainerDishes>
+          {console.log("%c 📝: CartPage -> storeArticle ", "font-size:16px;background-color:#4b5331;color:white;", localStorage.getItem('storeArticle'))}
+          
+          {JSON.parse(localStorage.getItem('storeArticle')).map((product) => {
+            {console.log(product)}
+        return (
+          <CardItem key={product.id}
+                    name={product.name}
+                    price={product.price}
+                    src={product.picture_url}>
+          </CardItem>
+        );})}
+        </C.ContainerDishes>) : (<h2>Not found</h2>
+        )}
       </Container>
-    )
+  );
 }
 
 export default CartPage;

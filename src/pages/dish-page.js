@@ -2,6 +2,7 @@ import { useAuth } from "../context/auth-context";
 import { useEffect, useState } from "react";
 import Button from "../components/Button/index";
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
 function DishPage() {
   const { getProducts, products } = useAuth();
@@ -36,7 +37,11 @@ function DishPage() {
           <p>{product.price}</p>
           <p>Description</p>
           <p>{product.description}</p>
-          <Button type="primary">Added to Cart</Button>
+          
+          <Button type="primary"><Link to={{
+                  pathname: "/cart",
+                  search: `?id=${product.id}`,
+                }}>Added to Cart</Link></Button>
         </Container>
       );
     })

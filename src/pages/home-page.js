@@ -8,7 +8,6 @@ import SearchForm from "../components/search-form";
 import HeaderCategories from "../components/header-categories";
 import Dishes from "../components/dishes";
 import { styled } from "@emotion/styled";
-import CartPage from "./cart-page";
 
 function HomePage() {
   const navigate = useNavigate();
@@ -27,8 +26,8 @@ function HomePage() {
     if (!byCategories) return;
 
     setData(byCategories[store.currentCategory]);
+    
   }, [store]);
-
   function eventChangeCategory(key, value) {
     setStore({ ...store, [key]: value });
   }
@@ -43,11 +42,9 @@ function HomePage() {
     // return navigate(`/dishes?name=${nameDish}&id=${idDish}`);
     return navigate(`/dishes/${idDish}`);
   }
-
   return (
     <div>
       <h1> HOME PAGE</h1>
-      <CartPage />
       <SearchForm store={store} onEvent={eventChangeCategory} />
 
       {store.query ? (
@@ -86,6 +83,7 @@ function HomePage() {
       )}
     </div>
   );
+  
 }
 
 export default HomePage;

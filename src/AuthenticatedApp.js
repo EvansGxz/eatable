@@ -5,6 +5,7 @@ import HomePage from "./pages/home-page";
 import Footer from "./components/footer";
 import ProfilePage from "./pages/profile-page";
 import DishPage from "./pages/dish-page";
+import CartPage from "./pages/cart-page";
 
 const Container = styled.div`
   display: flex;
@@ -28,7 +29,7 @@ function AuthenticatedApp() {
           <Route index element={<Navigate to="home" />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/dish" element={<DishPage />} />
-          <Route path="/cart" element={<h1>Detaill Cart</h1>} />
+          <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<h1>Checkout order</h1>} />
           <Route path="/history" element={<h1>History</h1>} />
           <Route path="/profile" element={<ProfilePage />} />
