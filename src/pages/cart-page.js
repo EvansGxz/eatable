@@ -1,47 +1,70 @@
-import { useAuth } from "../context/auth-context";
+// import { useAuth } from "../context/auth-context";
 import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import FoodPicture from "../components/foodPicture/food-picture";
 import CardItem from "../components/card-item/cardItem";
-import { ContainerDishes } from "../components/style-component/style-component";
 import C from "../components/style-component/index";
-import { useLocalStorage } from "../hooks";
+// import { fromLocalStorage, removeToLocalStorage, saveToLocalStorage } from "../components/utils";
 
 function CartPage() {
-  const { getProducts, products, storeArticle, show } = useAuth();
+  const [items, setItems] = useState(null);
+
   useEffect(() => {
-    const id =new URLSearchParams(window.location.search).get("id");
-    show(id);
-    
+    const List = JSON.parse(localStorage.getItem("listMyArticles"));
+    setItems(List);
   }, []);
-  
+
   const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
     justify-content: center;
     align-items: center;
   `;
-  
-    return (
-      <Container>
-        <h2>Cart</h2>
-        {JSON.parse(localStorage.getItem('storeArticle')) ? (
-          <C.ContainerDishes>
-          {console.log("%c 📝: CartPage -> storeArticle ", "font-size:16px;background-color:#4b5331;color:white;", localStorage.getItem('storeArticle'))}
-          
-          {JSON.parse(localStorage.getItem('storeArticle')).map((product) => {
-            {console.log(product)}
-        return (
-          <CardItem key={product.id}
-                    name={product.name}
-                    price={product.price}
-                    src={product.picture_url}>
-          </CardItem>
-        );})}
-        </C.ContainerDishes>) : (<h2>Not found</h2>
-        )}
-      </Container>
+
+  // function eventCant({ ...props }) {
+  //   console.log(
+  //     "%c 👩‍🏭: eventCant -> Items ",
+  //     "font-size:16px;background-color:#4ad3a0;color:black;",
+  //     items,
+  //     props.value,
+  //     props.id
+  //   );
+  //   if (props.value === 0) {
+  //     let temp = items;
+  //     delete temp[props.id];
+  //     setItems(temp);
+
+  //     let temp2 = JSON.parse(localStorage.getItem("storeArticle")).filter(
+  //       (article) => article.id !== props.id
+  //     );
+  //     localStorage.setItem("storeArticle", JSON.stringify(temp2));
+  //   } else {
+  //     setItems({ ...items, [props.id]: props.value });
+  //   }
+  // }
+
+  return (
+    <Container>
+      <h2>Cart</h2>
+      {items ? (
+        <C.ContainerDishes>
+          {Object.values(items).map((product) => {
+            return (
+              <CardItem
+                key={product.id}
+                name={product.name}
+                price={product.price}
+                src={product.picture_url}
+                // onClick={eventCant}
+                id={product.id}
+              />
+            );
+          })}
+        </C.ContainerDishes>
+      ) : (
+        <h2>Not found</h2>
+      )}
+    </Container>
   );
 }
 

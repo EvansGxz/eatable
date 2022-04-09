@@ -12,7 +12,7 @@ function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const { status, data, error, byCategories, execute } = useAsync();
-  const [storeArticle, setStoreArticle] = useLocalStorage(null, "Articles List");
+  const [storeArticle, setStoreArticle] = useLocalStorage([], "storeArticle");
 
   useEffect(() => {
     getUser()
@@ -42,20 +42,12 @@ function AuthProvider({ children }) {
   }
 
   function handleShowProducts(id) {
-    return showProduct(id).then(data => {
-      //setStoreArticle([...storeArticle, data])
-      const temp = JSON.parse(localStorage.getItem('storeArticle'));
-      temp ? localStorage.setItem('storeArticle', JSON.stringify([...temp, data])):
-      localStorage.setItem('storeArticle', JSON.stringify([data]))
-    })
+    return showProduct(id).then((data) => {
+      setStoreArticle([...storeArticle, data]);
+    });
   }
 
   function handleUpdateUser(userData) {
-    console.log(
-      "%c😄 🇧🇫: handleUpdateUser -> userData ",
-      "font-size:16px;background-color:#5fe218;color:black;",
-      userData
-    );
     return updateUser(userData).then((user) => {
       setUser(user);
       navigate("/home");
