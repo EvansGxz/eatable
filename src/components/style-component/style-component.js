@@ -33,7 +33,6 @@ export const ContainerDishes = styled.div`
   align-items: center;
   overflow-y: scroll;
   height: 70vh;
-   
 `;
 
 export const Wrapper = styled.div`
@@ -96,3 +95,35 @@ export const StyledLink = styled(NavLink)`
   }
 `;
 
+export const ContainerDishPage = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ContainerTotal = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+`;
+export const Total = styled.p`
+  padding-top: 1rem;
+  ${typography.regular.xs}
+  color: ${colors.dark}
+`;
+export const TotalValue = styled.p`
+  padding-top: 1rem;
+  ${typography.semibold.md}
+  color: ${colors.dark}
+`;
+export const FooterDishPage = styled.div`
+  position: fixed;
+  bottom: 4.5rem;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
