@@ -11,7 +11,7 @@ const Wrapper = styled.div`
     text-align: center;
     justify-content:center;
     min-height: 262px;
-    max-width: 262px;
+    min-width: 262px;
     border-radius:50%;
     background-color: ${colors.white};
     gap: 24px;
