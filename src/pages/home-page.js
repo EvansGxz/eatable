@@ -31,7 +31,6 @@ function HomePage() {
 
   return (
     <div>
-      <h1> HOME PAGE</h1>
       <SearchForm store={store} onEvent={eventChangeCategory} />
 
       {store.query ? (
@@ -39,12 +38,19 @@ function HomePage() {
           {products.map((product) => {
             if (!product.name.match(store.query)) return null;
             return (
-              <FoodCard
+              <C.StyledLink
+                to={{
+                  pathname: "/dish",
+                  search: `?name=${product.name}&id=${product.id}`,
+                }}
                 key={product.id}
-                src={product.picture_url}
-                name={product.name}
-                price={product.price}
-              />
+              >
+                <FoodCard
+                  src={product.picture_url}
+                  name={product.name}
+                  price={product.price}
+                />
+              </C.StyledLink>
             );
           })}
         </C.ContainerDishes>
@@ -56,7 +62,11 @@ function HomePage() {
             onEvent={eventChangeCategory}
           />
 
-          <Dishes data={data} byCategories={byCategories} />
+          <Dishes
+            style={{ backgroundColor: "green" }}
+            data={data}
+            byCategories={byCategories}
+          />
         </div>
       )}
     </div>
