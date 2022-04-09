@@ -3,6 +3,7 @@ import { colors } from "../../styles/colors";
 import { HiPlusSm } from "react-icons/hi";
 import { HiMinusSm } from "react-icons/hi";
 import { useState } from "react";
+// import { useLocalStorage } from "../../hooks";
 // import PropTypes from "prop-types";
 
 const Wrapper = styled.div`
@@ -17,36 +18,28 @@ const Wrapper = styled.div`
   gap: 3px;
 `;
 
-export function Counter({ onClick, id }) {
-  const [count, setCount] = useState(1);
-  const [items, setItems] = useState({});
+export function Counter({ id, cant, onClick }) {
+  // const [myCart, setMyCart] = useLocalStorage({}, "listMyArticles");
+  const [count, setCount] = useState(cant);
 
-  function eventCant(value, id) {
-    console.log(
-      "%c 👩‍🏭: eventCant -> Items ",
-      "font-size:16px;background-color:#4ad3a0;color:black;",
-      items,
-      value,
-      id
-    );
-    if (value === 0) {
-      let temp = items;
-      delete temp[id];
-      setItems(temp);
-
-      let temp2 = JSON.parse(localStorage.getItem("storeArticle")).filter(
-        (article) => article.id !== id
-      );
-      localStorage.setItem("storeArticle", JSON.stringify(temp2));
-    } else if (value > 0) setItems({ ...items, [id]: value });
-  }
+  // function eventCant(value, id) {
+  //   if (value <= 0) {
+  //     let temp = myCart;
+  //     delete temp[id];
+  //     setMyCart(temp);
+  //   } else {
+  //     let temp = myCart[id];
+  //     temp.cant = value;
+  //     setMyCart({ ...myCart, [id]: temp });
+  //   }
+  // }
 
   return (
     <Wrapper>
       <HiMinusSm
         onClick={() => {
-          const newValue = count <= 1 ? 0 : count - 1;
-          setCount(newValue) && eventCant(newValue, id);
+          setCount(count - 1);
+          onClick(count - 1, id);
         }}
         style={{ curson: "pointer" }}
       />
@@ -54,7 +47,7 @@ export function Counter({ onClick, id }) {
       <HiPlusSm
         onClick={() => {
           setCount(count + 1);
-          eventCant(count + 1, id);
+          onClick(count + 1, id);
         }}
         style={{ curson: "pointer" }}
       />

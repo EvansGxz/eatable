@@ -36,18 +36,18 @@ const PriceDish = styled.p`
   font-weight: 600;
 `;
 
-export default function CardItem({ src, name, price, onClick, id }) {
+export default function CardItem({ src, name, price, id, cant, onClick }) {
   return (
     <Wrapper>
       <FoodPicture src={src} />
       <div>
         <NameDish> {name} </NameDish>
         <div style={{ float: "left" }}>
-          <PriceDish> {price} </PriceDish>
+          <PriceDish>${(price * cant) / 100} </PriceDish>
         </div>
       </div>
       <div style={{ marginBbottom: "24px" }}>
-        <Counter onClick={onClick} id={id} num={1} />
+        <Counter id={id} cant={cant} onClick={onClick} />
       </div>
     </Wrapper>
   );
