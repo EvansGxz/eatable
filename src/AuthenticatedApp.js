@@ -3,10 +3,10 @@ import { colors } from "./styles";
 import { Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/home-page";
 import ProfilePage from "./pages/profile-page";
-import Footer from './components/Footer/footer';
+import Footer from "./components/Footer/footer";
 import DishPage from "./pages/dish-page";
 import CartPage from "./pages/cart-page";
-
+import CheckoutPage from "./pages/checkout-page";
 
 const Container = styled.div`
   display: flex;
@@ -23,7 +23,7 @@ const Container = styled.div`
 const MainContainer = styled.main`
   padding: 1.5rem 2rem;
   flex-grow: 1;
-  `;
+`;
 
 function AuthenticatedApp() {
   return (
@@ -34,7 +34,7 @@ function AuthenticatedApp() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/dish" element={<DishPage />} />
           <Route path="/cart" element={<CartPage />} />
-          <Route path="/checkout" element={<h1>Checkout order</h1>} />
+          <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/history" element={<h1>History</h1>} />
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>

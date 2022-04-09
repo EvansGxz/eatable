@@ -1,35 +1,23 @@
-// import { useAuth } from "../context/auth-context";
 import { useEffect, useState } from "react";
-import styled from "@emotion/styled";
 import CardItem from "../components/card-item/cardItem";
 import C from "../components/style-component/index";
 import { useLocalStorage } from "../hooks";
-// import { fromLocalStorage, removeToLocalStorage, saveToLocalStorage } from "../components/utils";
 import Button from "../components/Button/index";
-import { typography } from "../styles";
-import { colors } from "../styles/colors";
+import { AiOutlineLeft } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 function CartPage() {
   const [erase, setErase] = useState({ erased: false, id: null });
   const [total, setTotal] = useState(0);
   const [myCart, setMyCart] = useLocalStorage({}, "listMyArticles");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(
-      "%c ⛅: CartPage -> myCart ",
-      "font-size:16px;background-color:#eb80ad;color:white;",
-      myCart
-    );
     let temp = myCart;
-    let a = Object.values(temp).reduce((acc, va) => {
+    let total = Object.values(temp).reduce((acc, va) => {
       return acc + va.cant * va.price;
     }, 0);
-    console.log(
-      "%c 🏝️: CartPage -> a  ",
-      "font-size:16px;background-color:#0f0b10;color:white;",
-      a
-    );
-    setTotal(a / 100);
+    setTotal(total / 100);
   }, [myCart]);
 
   useEffect(() => {
@@ -50,11 +38,27 @@ function CartPage() {
     }
   }
 
-  function eventCheckout() {}
+  // function eventCheckout() {
+  //   console.log(myCart);
+
+  //   product.cant = !myCart[product.id] ? 1 : myCart[product.id].cant + 1;
+  //   setMyCart({ ...myCart, [product.id]: product });
+  // }
 
   return (
     <C.ContainerDishPage>
-      <h2>Cart</h2>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
+        <C.StyledLink to={"/home"} style={{ alignSelf: "flex-start" }}>
+          <AiOutlineLeft />
+        </C.StyledLink>
+        <h2>Cart</h2>
+      </div>
       {myCart ? (
         <C.ContainerDishes>
           {/* setTotal(total + product.price * product.cant); */}
@@ -76,7 +80,7 @@ function CartPage() {
               <C.Total>total</C.Total>
               <C.TotalValue>${total}</C.TotalValue>
             </C.ContainerTotal>
-            <Button type="primary" onClick={() => eventCheckout()}>
+            <Button type="primary" onClick={() => navigate("/checkout")}>
               Checkout
             </Button>
           </C.FooterDishPage>
