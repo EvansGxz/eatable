@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../context/auth-context";
+import { getUser } from "../services/users-service";
 import Button from "./Button";
 import Input from "./input";
 
@@ -12,12 +13,19 @@ const StyledForm = styled.form`
 `;
 
 export default function ProfileForm() {
-  const { user, update } = useAuth();
-  const [form, setForm] = useState({
-    name: "",
-    phone: "",
-    address: "",
-  });
+  const { update } = useAuth();
+  const [form, setForm] = useState(null);
+
+  useEffect(() => {
+    getUser().then((user) => {
+      setForm({
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        address: user.address,
+      });
+    });
+  }, []);
 
   const [errors, setErrors] = useState({
     name: "",
@@ -43,43 +51,49 @@ export default function ProfileForm() {
   }
 
   return (
-    <StyledForm onSubmit={handleSubmit}>
-      <Input
-        id="name"
-        label="Name"
-        placeholder="John"
-        value={form.name}
-        onChange={handleFormChange}
-        error={errors.name}
-      />
-      <Input
-        label="Email"
-        placeholder="JohnDoe@mail.com"
-        value={user.email}
-        readOnly="readonly"
-        disabled
-      />
+    <>
+      {form ? (
+        <StyledForm onSubmit={handleSubmit}>
+          <Input
+            id="name"
+            label="Name"
+            placeholder="John"
+            value={form.name}
+            onChange={handleFormChange}
+            error={errors.name}
+          />
+          <Input
+            label="Email"
+            placeholder="JohnDoe@mail.com"
+            value={form.email}
+            readOnly="readonly"
+            disabled
+          />
 
-      <Input
-        id="phone"
-        label="Phone"
-        placeholder="933 553 159"
-        value={form.phone}
-        onChange={handleFormChange}
-        error={errors.phone}
-      />
+          <Input
+            id="phone"
+            label="Phone"
+            placeholder="933 553 159"
+            value={form.phone}
+            onChange={handleFormChange}
+            error={errors.phone}
+          />
 
-      <Input
-        id="address"
-        label="Address"
-        placeholder="Calle 16 N°214, Mexico"
-        value={form.address}
-        onChange={handleFormChange}
-        error={errors.address}
-      />
-      <Button isFullWidth type="primary">
-        Update
-      </Button>
-    </StyledForm>
+          <Input
+            id="address"
+            label="Address"
+            placeholder="Calle 16 N°214, Mexico"
+            value={form.address}
+            onChange={handleFormChange}
+            error={errors.address}
+          />
+          <Button isFullWidth type="primary">
+            Update
+          </Button>
+        </StyledForm>
+      ) : (
+        <div>Cargando....</div>
+      )}
+    </>
   );
 }

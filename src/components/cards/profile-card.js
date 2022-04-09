@@ -3,10 +3,13 @@ import { useState } from "react";
 import { useAuth } from "../../context/auth-context";
 import Button from "../Button/index";
 import Input from "../input";
+import { LoggedOut } from "../../stories/Header.stories";
+import { logout } from "../../services/session-service";
+import { useNavigate } from "react-router-dom";
 
 const ContainerCardProfile = styled.div`
   width: 315px;
-  height: 197px;
+  /* height: 197px; */
   box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.03);
   border-radius: 20px;
 `;
@@ -18,15 +21,9 @@ const StyledForm = styled.form`
   min-width: 258px;
 `;
 
-export function CardProfile({
-  disabled,
-  change,
-  user,
-  update,
-  onUpdate,
-  onChange,
-}) {
-  // const { user, update } = useAuth();
+export function CardProfile({ disabled, change, user, type, onChange, exist }) {
+  const { update } = useAuth();
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -42,26 +39,39 @@ export function CardProfile({
   function handleSubmit(event) {
     event.preventDefault();
 
-    update(form).catch((error) => {
-      console.log(error);
-      const newErrors = JSON.parse(error.message);
-      setErrors({ ...errors, ...newErrors });
-    });
+    update(user)
+      .then(navigate("/home"))
+      .catch((error) => {
+        console.log(error);
+        const newErrors = JSON.parse(error.message);
+        setErrors({ ...errors, ...newErrors });
+      });
   }
 
   return (
     <ContainerCardProfile>
-      <StyledForm onSubmit={onUpdate}>
+      <StyledForm onSubmit={handleSubmit}>
         <Input
           id="name"
           label="Name"
           placeholder="John"
-          defaultValue={user.name}
+          value={user.name}
           onChange={onChange}
           error={errors.name}
           disabled={disabled}
           styled={{ backgroundColor: "white" }}
         />
+
+        {type !== "checkout" ? (
+          <Input
+            label="Email"
+            placeholder="JohnDoe@mail.com"
+            value={user.email}
+            onChange={onChange}
+            // readOnly="readonly"
+            disabled={type === "checkout" ? disabled : null}
+          />
+        ) : null}
 
         <Input
           id="phone"
@@ -84,9 +94,9 @@ export function CardProfile({
           disabled={disabled}
           styled={{ backgroundColor: "white" }}
         />
-        {change ? (
+        {(change || !exist) && type !== "checkout" ? (
           <Button isFullWidth type="primary" style={{ margin: "1rem 0" }}>
-            confirm
+            update
           </Button>
         ) : null}
       </StyledForm>

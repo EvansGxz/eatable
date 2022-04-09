@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "../hooks";
 import { useAuth } from "../context/auth-context";
 import { createOrder } from "../services/orders-service";
+import { AiOutlineLeft } from "react-icons/ai";
 
 function CheckoutPage() {
   const navigate = useNavigate();
@@ -20,15 +21,15 @@ function CheckoutPage() {
     console.log("Mi personal data", personalData);
   }, []);
 
-  function HandleChangeData(e) {
-    e.preventDefault();
-    setPersonalData();
-    console.log(
-      "%c 🈳: HandleChangeData -> e ",
-      "font-size:16px;background-color:#b98396;color:white;",
-      e.target
-    );
-  }
+  // function HandleChangeData(e) {
+  //   e.preventDefault();
+  //   setPersonalData();
+  //   console.log(
+  //     "%c 🈳: HandleChangeData -> e ",
+  //     "font-size:16px;background-color:#b98396;color:white;",
+  //     e.target
+  //   );
+  // }
 
   function eventChange() {
     setChange(!change);
@@ -62,6 +63,9 @@ function CheckoutPage() {
   return (
     <div>
       <h1>Checkout</h1>
+      <C.StyledLink to={"/cart"} style={{ alignSelf: "flex-start" }}>
+        <AiOutlineLeft />
+      </C.StyledLink>
       <div
         style={{
           display: "flex",
@@ -78,14 +82,16 @@ function CheckoutPage() {
           {change ? "Cancel" : "Change"}
         </h3>
       </div>
+
       <CardProfile
         disabled={change ? null : "disabled"}
         change={change}
         user={personalData}
-        onUpdate={HandleChangeData}
+        exist={true}
         onChange={handleFormChange}
+        type={"checkout"}
       />
-      ;
+
       <C.FooterDishPage>
         <C.ContainerTotal>
           <C.Total>total</C.Total>

@@ -3,6 +3,7 @@ import { indexOrders } from "../services/orders-service";
 import styled from "@emotion/styled";
 import { typography } from "../styles";
 import { AiOutlineDown } from "react-icons/ai";
+import moment from "moment";
 
 function HistoryPage() {
   const [myOrders, setMyOrders] = useState(null);
@@ -50,14 +51,15 @@ function HistoryPage() {
         myOrders.map((order) => {
           return (
             <ContainerHistoryCard key={order.id}>
-              <p>
+              {/* <p>
                 {new Intl.DateTimeFormat("en-GB", { dateStyle: "full" }).format(
                   order.at_created
                 )}
-              </p>
+              </p> */}
+              <p>{moment(order.at_created).format("ddd,MMM D, YYYY")}</p>
               <TotalPaid>
                 <p>{order.items_count} items</p>
-                <span>$ {order.total}</span>
+                <span>$ {order.total / 100}</span>
               </TotalPaid>
               <div
                 onClick={() => (show ? setShow(null) : setShow(order.id))}

@@ -16,6 +16,10 @@ function DishPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    localStorage.setItem(
+      "info",
+      JSON.stringify({ currentCategory: "italian", query: null })
+    );
     const id = new URLSearchParams(window.location.search).get("id");
     // show(id);
     showProduct(id).then(setProductDetail);

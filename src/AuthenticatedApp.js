@@ -8,6 +8,7 @@ import DishPage from "./pages/dish-page";
 import CartPage from "./pages/cart-page";
 import CheckoutPage from "./pages/checkout-page";
 import HistoryPage from "./pages/history-page";
+import { useAuth } from "./context/auth-context";
 
 const Container = styled.div`
   display: flex;
@@ -27,17 +28,24 @@ const MainContainer = styled.main`
 `;
 
 function AuthenticatedApp() {
+  const { user } = useAuth();
   return (
     <Container>
       <MainContainer>
         <Routes>
-          <Route index element={<Navigate to="home" />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/dish" element={<DishPage />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/history" element={<HistoryPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          {user.name ? (
+            <>
+              <Route index element={<Navigate to="home" />} />
+              <Route path="/home" element={<HomePage />} />
+              <Route path="/dish" element={<DishPage />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/history" element={<HistoryPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+            </>
+          ) : (
+            <Route path="/*" element={<ProfilePage />} />
+          )}
         </Routes>
       </MainContainer>
       <Footer />
