@@ -7,6 +7,7 @@ import Footer from "./components/Footer/footer";
 import DishPage from "./pages/dish-page";
 import CartPage from "./pages/cart-page";
 import CheckoutPage from "./pages/checkout-page";
+import HistoryPage from "./pages/history-page";
 
 const Container = styled.div`
   display: flex;
@@ -35,7 +36,7 @@ function AuthenticatedApp() {
           <Route path="/dish" element={<DishPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/history" element={<h1>History</h1>} />
+          <Route path="/history" element={<HistoryPage />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </MainContainer>

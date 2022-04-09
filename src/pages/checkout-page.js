@@ -46,10 +46,10 @@ function CheckoutPage() {
 
     const Order = { delivery_address: deliveryAdress, items: items };
     createOrder(Order).then(() => {
-      localStorage.setItem("ListMyArticles", null);
+      localStorage.setItem("listMyArticles", null);
       localStorage.setItem("PersonalData", null);
     });
-    navigate("/home");
+    navigate("/history");
   }
 
   function handleFormChange(event) {
