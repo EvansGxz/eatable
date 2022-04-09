@@ -86,7 +86,7 @@ function CheckoutPage() {
       <CardProfile
         disabled={change ? null : "disabled"}
         change={change}
-        user={personalData}
+        personalData={personalData}
         exist={true}
         onChange={handleFormChange}
         type={"checkout"}

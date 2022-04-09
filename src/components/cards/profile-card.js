@@ -21,8 +21,15 @@ const StyledForm = styled.form`
   min-width: 258px;
 `;
 
-export function CardProfile({ disabled, change, user, type, onChange, exist }) {
-  const { update } = useAuth();
+export function CardProfile({
+  disabled,
+  change,
+  personalData,
+  type,
+  onChange,
+  exist,
+}) {
+  const { update, user } = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
@@ -39,7 +46,7 @@ export function CardProfile({ disabled, change, user, type, onChange, exist }) {
   function handleSubmit(event) {
     event.preventDefault();
 
-    update(user)
+    update(personalData)
       .then(navigate("/home"))
       .catch((error) => {
         console.log(error);
@@ -55,46 +62,49 @@ export function CardProfile({ disabled, change, user, type, onChange, exist }) {
           id="name"
           label="Name"
           placeholder="John"
-          value={user.name}
+          value={personalData.name}
           onChange={onChange}
           error={errors.name}
           disabled={disabled}
           styled={{ backgroundColor: "white" }}
         />
-
         {type !== "checkout" ? (
           <Input
             label="Email"
             placeholder="JohnDoe@mail.com"
-            value={user.email}
+            value={personalData.email}
             onChange={onChange}
             // readOnly="readonly"
             disabled={type === "checkout" ? disabled : null}
           />
         ) : null}
-
         <Input
           id="phone"
           label="Phone"
           placeholder="933 553 159"
-          value={user.phone}
+          value={personalData.phone}
           onChange={onChange}
           error={errors.phone}
           disabled={disabled}
           styled={{ backgroundColor: "white" }}
         />
-
         <Input
           id="address"
           label="Address"
           placeholder="Calle 16 N°214, Mexico"
-          value={user.address}
+          value={personalData.address}
           onChange={onChange}
           error={errors.address}
           disabled={disabled}
           styled={{ backgroundColor: "white" }}
         />
-        {(change || !exist) && type !== "checkout" ? (
+        {console.log(
+          "%c 🚜: CardProfile -> change, exist ",
+          "font-size:16px;background-color:#804b93;color:white;",
+          change,
+          exist
+        )}
+        {(change || !user.name) && type !== "checkout" ? (
           <Button isFullWidth type="primary" style={{ margin: "1rem 0" }}>
             update
           </Button>

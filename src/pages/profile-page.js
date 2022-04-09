@@ -34,10 +34,10 @@ function ProfilePage() {
             </h3>
           </div>
           <CardProfile
-            user={personalData}
+            personalData={personalData}
             onChange={handleFormChange}
-            change={personalData.name ? change : true}
-            disabled={change ? null : false}
+            change={change}
+            disabled={change ? null : "disabled"}
             exist={user.name ? true : false}
             // change={personalData.name ? true}
           />
