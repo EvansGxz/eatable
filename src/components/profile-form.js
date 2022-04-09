@@ -52,7 +52,13 @@ export default function ProfileForm() {
         onChange={handleFormChange}
         error={errors.name}
       />
-      <Input value={user.email} readOnly="readonly" />
+      <Input
+        label="Email"
+        placeholder="JohnDoe@mail.com"
+        value={user.email}
+        readOnly="readonly"
+        disabled
+      />
 
       <Input
         id="phone"

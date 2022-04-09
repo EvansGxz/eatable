@@ -8,7 +8,8 @@ import { useNavigate } from "react-router-dom";
 
 function CartPage() {
   const [erase, setErase] = useState({ erased: false, id: null });
-  const [total, setTotal] = useState(0);
+  // const [total, setTotal] = useState(0);
+  const [total, setTotal] = useLocalStorage(0, "TotalToPay");
   const [myCart, setMyCart] = useLocalStorage({}, "listMyArticles");
   const navigate = useNavigate();
 

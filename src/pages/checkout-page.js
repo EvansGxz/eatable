@@ -1,5 +1,102 @@
+import { BsDisplay } from "react-icons/bs";
+import { CardProfile } from "../components/cards/profile-card";
+import C from "../components/style-component/index";
+import { useEffect, useState } from "react";
+import Button from "../components/Button/index";
+import { useNavigate } from "react-router-dom";
+import { useLocalStorage } from "../hooks";
+import { useAuth } from "../context/auth-context";
+import { createOrder } from "../services/orders-service";
+
 function CheckoutPage() {
-  return <h1>Checkout</h1>;
+  const navigate = useNavigate();
+  const [personalData, setPersonalData] = useLocalStorage(
+    useAuth().user,
+    "PersonalData"
+  );
+  const [change, setChange] = useState(false);
+
+  useEffect(() => {
+    console.log("Mi personal data", personalData);
+  }, []);
+
+  function HandleChangeData(e) {
+    e.preventDefault();
+    setPersonalData();
+    console.log(
+      "%c 🈳: HandleChangeData -> e ",
+      "font-size:16px;background-color:#b98396;color:white;",
+      e.target
+    );
+  }
+
+  function eventChange() {
+    setChange(!change);
+  }
+
+  function eventCompleteOrder() {
+    const articlesToBuy = JSON.parse(localStorage.getItem("listMyArticles"));
+    const deliveryAdress = personalData.address;
+
+    const items = [
+      ...Object.values(articlesToBuy).map((product) => {
+        return { id: product.id, quantity: product.cant };
+      }),
+    ];
+
+    const Order = { delivery_address: deliveryAdress, items: items };
+    createOrder(Order).then(() => {
+      localStorage.setItem("ListMyArticles", null);
+      localStorage.setItem("PersonalData", null);
+    });
+    navigate("/home");
+  }
+
+  function handleFormChange(event) {
+    const { name, value } = event.target;
+
+    setPersonalData({ ...personalData, [name]: value });
+    // setErrors({ ...errors, [name]: "" });
+  }
+
+  return (
+    <div>
+      <h1>Checkout</h1>
+      <div
+        style={{
+          display: "flex",
+          width: "100%",
+          justifyContent: "space-between",
+          margin: "1rem 0",
+        }}
+      >
+        <h3>Personal Details</h3>
+        <h3
+          style={change ? { color: "green" } : { color: "orange" }}
+          onClick={eventChange}
+        >
+          {change ? "Cancel" : "Change"}
+        </h3>
+      </div>
+      <CardProfile
+        disabled={change ? null : "disabled"}
+        change={change}
+        user={personalData}
+        onUpdate={HandleChangeData}
+        onChange={handleFormChange}
+      />
+      ;
+      <C.FooterDishPage>
+        <C.ContainerTotal>
+          <C.Total>total</C.Total>
+          <C.TotalValue>${localStorage.getItem("TotalToPay")}</C.TotalValue>
+        </C.ContainerTotal>
+        <Button type="primary" onClick={eventCompleteOrder}>
+          Complete Order
+        </Button>
+      </C.FooterDishPage>
+    </div>
+  );
 }
 
 export default CheckoutPage;

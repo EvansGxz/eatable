@@ -4,6 +4,6 @@ export async function indexOrders() {
   return await apiFetch(`/orders`);
 }
 
-export async function showOrders(newOrder) {
+export async function createOrder(newOrder) {
   return await apiFetch(`/orders`, { body: newOrder });
 }

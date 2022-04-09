@@ -24,6 +24,7 @@ function HomePage() {
 
     setData(byCategories[store.currentCategory]);
   }, [store]);
+
   function eventChangeCategory(key, value) {
     setStore({ ...store, [key]: value });
   }
