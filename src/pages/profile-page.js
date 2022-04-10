@@ -24,7 +24,14 @@ function ProfilePage() {
     <>
       {personalData.email ? (
         <>
-          <div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <h1>My Profile</h1>
             <h3
               style={change ? { color: "green" } : { color: "orange" }}

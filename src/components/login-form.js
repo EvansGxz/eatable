@@ -9,6 +9,7 @@ const StyledForm = styled.form`
   flex-direction: column;
   gap: 2rem;
   min-width: 258px;
+  width: 80%;
 `;
 
 export default function LoginForm() {

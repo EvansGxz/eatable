@@ -57,8 +57,11 @@ function AuthProvider({ children }) {
   function handleLogout() {
     return logout().finally(() => {
       localStorage.setItem("PersonalData", null);
-      localStorage.setItem("info", null);
-      localStorage.setItem("listMyArticles", null);
+      localStorage.setItem(
+        "info",
+        JSON.stringify({ currentCategory: "italian", query: "" })
+      );
+      localStorage.setItem("listMyArticles", JSON.stringify({}));
       localStorage.setItem("TotalToPay", 0);
       setUser(null);
       navigate("/");
@@ -69,6 +72,7 @@ function AuthProvider({ children }) {
     <AuthContext.Provider
       value={{
         user,
+        status,
         storeArticle,
         products: data,
         byCategories,

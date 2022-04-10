@@ -5,10 +5,12 @@ import { useLocalStorage } from "../hooks";
 import Button from "../components/Button/index";
 import { AiOutlineLeft } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import { BsCartX } from "react-icons/bs";
+import NoContent from "../components/noContent/no-content";
+import { colors } from "../styles/colors";
 
 function CartPage() {
   const [erase, setErase] = useState({ erased: false, id: null });
-  // const [total, setTotal] = useState(0);
   const [total, setTotal] = useLocalStorage(0, "TotalToPay");
   const [myCart, setMyCart] = useLocalStorage({}, "listMyArticles");
   const navigate = useNavigate();
@@ -26,7 +28,6 @@ function CartPage() {
     let temp = myCart;
     delete temp[erase.id];
     localStorage.setItem("listMyArticles", JSON.stringify(temp));
-    // setMyCart(temp);
   }, [erase]);
 
   function eventCant(value, id) {
@@ -39,13 +40,6 @@ function CartPage() {
     }
   }
 
-  // function eventCheckout() {
-  //   console.log(myCart);
-
-  //   product.cant = !myCart[product.id] ? 1 : myCart[product.id].cant + 1;
-  //   setMyCart({ ...myCart, [product.id]: product });
-  // }
-
   return (
     <C.ContainerDishPage>
       <div
@@ -53,6 +47,8 @@ function CartPage() {
           display: "flex",
           alignItems: "center",
           width: "100%",
+          padding: "54px",
+          paddingBottom: 0,
         }}
       >
         <C.StyledLink to={"/home"} style={{ alignSelf: "flex-start" }}>
@@ -60,9 +56,8 @@ function CartPage() {
         </C.StyledLink>
         <h2>Cart</h2>
       </div>
-      {myCart ? (
+      {Object.keys(myCart).length > 0 ? (
         <C.ContainerDishes>
-          {/* setTotal(total + product.price * product.cant); */}
           {Object.values(myCart).map((product) => {
             return (
               <CardItem
@@ -87,7 +82,10 @@ function CartPage() {
           </C.FooterDishPage>
         </C.ContainerDishes>
       ) : (
-        <h2>Not found</h2>
+        <NoContent
+          icon={<BsCartX size={105} style={{ fill: colors.gray }} />}
+          text="No items in the cart."
+        />
       )}
     </C.ContainerDishPage>
   );

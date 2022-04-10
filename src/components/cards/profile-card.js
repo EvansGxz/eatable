@@ -12,6 +12,7 @@ const ContainerCardProfile = styled.div`
   /* height: 197px; */
   box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.03);
   border-radius: 20px;
+  padding: "54px";
 `;
 
 const StyledForm = styled.form`
@@ -31,11 +32,6 @@ export function CardProfile({
 }) {
   const { update, user } = useAuth();
   const navigate = useNavigate();
-  const [form, setForm] = useState({
-    name: "",
-    phone: "",
-    address: "",
-  });
 
   const [errors, setErrors] = useState({
     name: "",
@@ -74,8 +70,7 @@ export function CardProfile({
             placeholder="JohnDoe@mail.com"
             value={personalData.email}
             onChange={onChange}
-            // readOnly="readonly"
-            disabled={type === "checkout" ? disabled : null}
+            disabled
           />
         ) : null}
         <Input
@@ -98,12 +93,6 @@ export function CardProfile({
           disabled={disabled}
           styled={{ backgroundColor: "white" }}
         />
-        {console.log(
-          "%c 🚜: CardProfile -> change, exist ",
-          "font-size:16px;background-color:#804b93;color:white;",
-          change,
-          exist
-        )}
         {(change || !user.name) && type !== "checkout" ? (
           <Button isFullWidth type="primary" style={{ margin: "1rem 0" }}>
             update

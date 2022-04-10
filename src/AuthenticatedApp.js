@@ -23,7 +23,11 @@ const Container = styled.div`
 `;
 
 const MainContainer = styled.main`
-  padding: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* padding: 1.5rem 2rem; */
   flex-grow: 1;
 `;
 

@@ -6,9 +6,12 @@ import C from "../components/style-component/index";
 import SearchForm from "../components/search-form";
 import HeaderCategories from "../components/header-categories";
 import Dishes from "../components/dishes";
+import NoContent from "../components/noContent/no-content";
+import { colors } from "../styles/colors";
+import { MdOutlineSearchOff } from "react-icons/md";
 
 function HomePage() {
-  const { getProducts, products, byCategories } = useAuth();
+  const { getProducts, products, byCategories, status } = useAuth();
   const [store, setStore] = useLocalStorage(
     { currentCategory: null, query: null },
     "info"
@@ -36,7 +39,19 @@ function HomePage() {
       {store.query ? (
         <C.ContainerDishes>
           {products.map((product) => {
-            if (!product.name.match(store.query)) return null;
+            if (!product.name.match(store.query))
+              return (
+                <NoContent
+                  key={product.id}
+                  icon={
+                    <MdOutlineSearchOff
+                      size={105}
+                      style={{ fill: colors.gray }}
+                    />
+                  }
+                  text="No products found."
+                />
+              );
             return (
               <C.StyledLink
                 to={{
@@ -66,6 +81,7 @@ function HomePage() {
             style={{ backgroundColor: "green" }}
             data={data}
             byCategories={byCategories}
+            status={status}
           />
         </div>
       )}

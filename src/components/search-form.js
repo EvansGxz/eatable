@@ -47,7 +47,7 @@ function SearchForm({ store, onEvent }) {
       />
       <FiShoppingCart
         style={{ cursor: "pointer", color: `${colors.DarkGray}` }}
-        onClick={() => navigate("/history")}
+        onClick={() => navigate("/cart")}
       />
     </div>
   );
