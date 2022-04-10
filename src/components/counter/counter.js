@@ -3,8 +3,6 @@ import { colors } from "../../styles/colors";
 import { HiPlusSm } from "react-icons/hi";
 import { HiMinusSm } from "react-icons/hi";
 import { useState } from "react";
-// import { useLocalStorage } from "../../hooks";
-// import PropTypes from "prop-types";
 
 const Wrapper = styled.div`
   background-color: ${colors.orange};
@@ -19,20 +17,7 @@ const Wrapper = styled.div`
 `;
 
 export function Counter({ id, cant, onClick }) {
-  // const [myCart, setMyCart] = useLocalStorage({}, "listMyArticles");
   const [count, setCount] = useState(cant);
-
-  // function eventCant(value, id) {
-  //   if (value <= 0) {
-  //     let temp = myCart;
-  //     delete temp[id];
-  //     setMyCart(temp);
-  //   } else {
-  //     let temp = myCart[id];
-  //     temp.cant = value;
-  //     setMyCart({ ...myCart, [id]: temp });
-  //   }
-  // }
 
   return (
     <Wrapper>

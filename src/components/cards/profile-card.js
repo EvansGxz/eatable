@@ -31,11 +31,6 @@ export function CardProfile({
 }) {
   const { update, user } = useAuth();
   const navigate = useNavigate();
-  const [form, setForm] = useState({
-    name: "",
-    phone: "",
-    address: "",
-  });
 
   const [errors, setErrors] = useState({
     name: "",
@@ -74,8 +69,7 @@ export function CardProfile({
             placeholder="JohnDoe@mail.com"
             value={personalData.email}
             onChange={onChange}
-            // readOnly="readonly"
-            disabled={type === "checkout" ? disabled : null}
+            disabled
           />
         ) : null}
         <Input

@@ -17,20 +17,6 @@ function CheckoutPage() {
   );
   const [change, setChange] = useState(false);
 
-  useEffect(() => {
-    console.log("Mi personal data", personalData);
-  }, []);
-
-  // function HandleChangeData(e) {
-  //   e.preventDefault();
-  //   setPersonalData();
-  //   console.log(
-  //     "%c 🈳: HandleChangeData -> e ",
-  //     "font-size:16px;background-color:#b98396;color:white;",
-  //     e.target
-  //   );
-  // }
-
   function eventChange() {
     setChange(!change);
   }
@@ -47,7 +33,7 @@ function CheckoutPage() {
 
     const Order = { delivery_address: deliveryAdress, items: items };
     createOrder(Order).then(() => {
-      localStorage.setItem("listMyArticles", null);
+      localStorage.setItem("listMyArticles", {});
       localStorage.setItem("PersonalData", null);
     });
     navigate("/history");
