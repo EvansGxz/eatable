@@ -98,12 +98,6 @@ export function CardProfile({
           disabled={disabled}
           styled={{ backgroundColor: "white" }}
         />
-        {console.log(
-          "%c 🚜: CardProfile -> change, exist ",
-          "font-size:16px;background-color:#804b93;color:white;",
-          change,
-          exist
-        )}
         {(change || !user.name) && type !== "checkout" ? (
           <Button isFullWidth type="primary" style={{ margin: "1rem 0" }}>
             update
