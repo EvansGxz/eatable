@@ -11,7 +11,6 @@ import { colors } from "../styles/colors";
 
 function CartPage() {
   const [erase, setErase] = useState({ erased: false, id: null });
-  // const [total, setTotal] = useState(0);
   const [total, setTotal] = useLocalStorage(0, "TotalToPay");
   const [myCart, setMyCart] = useLocalStorage({}, "listMyArticles");
   const navigate = useNavigate();
@@ -48,6 +47,8 @@ function CartPage() {
           display: "flex",
           alignItems: "center",
           width: "100%",
+          padding: "54px",
+          paddingBottom: 0,
         }}
       >
         <C.StyledLink to={"/home"} style={{ alignSelf: "flex-start" }}>

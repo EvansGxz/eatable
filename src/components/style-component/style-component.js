@@ -96,6 +96,7 @@ export const StyledLink = styled(NavLink)`
 `;
 
 export const ContainerDishPage = styled.div`
+  padding: 54px 32px 0 32px
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -105,7 +106,7 @@ export const ContainerDishPage = styled.div`
 
 export const ContainerTotal = styled.div`
   display: flex;
-  width: 100%;
+  width: 80%;
   justify-content: space-between;
 `;
 export const Total = styled.p`

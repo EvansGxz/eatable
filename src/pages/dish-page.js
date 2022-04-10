@@ -1,16 +1,13 @@
-import { useAuth } from "../context/auth-context";
 import { useEffect, useState } from "react";
 import Button from "../components/Button/index";
 import styled from "@emotion/styled";
 import { AiOutlineLeft } from "react-icons/ai";
 import C from "../components/style-component";
-import { Link } from "react-router-dom";
 import { useLocalStorage } from "../hooks";
 import { useNavigate } from "react-router-dom";
 import { showProduct } from "../services/products-service";
 
 function DishPage() {
-  // const { getProducts, products, show } = useAuth();
   const [myCart, setMyCart] = useLocalStorage({}, "listMyArticles");
   const [productDetail, setProductDetail] = useState(null);
   const navigate = useNavigate();
@@ -21,7 +18,6 @@ function DishPage() {
       JSON.stringify({ currentCategory: "italian", query: null })
     );
     const id = new URLSearchParams(window.location.search).get("id");
-    // show(id);
     showProduct(id).then(setProductDetail);
   }, []);
 
@@ -38,11 +34,8 @@ function DishPage() {
   `;
 
   const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 0.625rem;
-    justify-content: center;
-    align-items: center;
+    overflow: hidden;
+    height: 85vh;
   `;
 
   function eventMyCart(product) {
@@ -54,18 +47,33 @@ function DishPage() {
 
   return productDetail ? (
     <Container key={productDetail.id}>
-      <C.StyledLink to={"/home"} style={{ alignSelf: "flex-start" }}>
-        <AiOutlineLeft />
-      </C.StyledLink>
+      <div
+        style={{
+          overflow: "auto",
+          width: "100%",
+          height: "99%",
+          padding: "50px 54px 0 54px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "0.625rem",
+          justifyContent: "center",
+          alignItems: "center",
+          // paddingRight: "15px",
+        }}
+      >
+        <C.StyledLink to={"/home"} style={{ alignSelf: "flex-start" }}>
+          <AiOutlineLeft />
+        </C.StyledLink>
 
-      <Photo src={productDetail.picture_url} alt="" />
-      <C.NameDish>{productDetail.name}</C.NameDish>
-      <C.PriceDish>${productDetail.price / 100}</C.PriceDish>
-      <C.TitleDescription>Description</C.TitleDescription>
-      <C.DescriptionDish>{productDetail.description}</C.DescriptionDish>
-      <Button type="primary" onClick={() => eventMyCart(productDetail)}>
-        Added to Cart
-      </Button>
+        <Photo src={productDetail.picture_url} alt="" />
+        <C.NameDish>{productDetail.name}</C.NameDish>
+        <C.PriceDish>${productDetail.price / 100}</C.PriceDish>
+        <C.TitleDescription>Description</C.TitleDescription>
+        <C.DescriptionDish>{productDetail.description}</C.DescriptionDish>
+        <Button type="primary" onClick={() => eventMyCart(productDetail)}>
+          Added to Cart
+        </Button>
+      </div>
     </Container>
   ) : (
     <div>no hay datos aún</div>

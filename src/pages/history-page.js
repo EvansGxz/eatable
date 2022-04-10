@@ -50,54 +50,56 @@ function HistoryPage() {
   return (
     <div>
       <h1>History Page</h1>;
-      {myOrders.length > 0 ? (
-        myOrders.map((order) => {
-          return (
-            <ContainerHistoryCard key={order.id}>
-              <p>{moment(order.at_created).format("ddd,MMM D, YYYY")}</p>
-              <TotalPaid>
-                <p>{order.items_count} items</p>
-                <span>$ {order.total / 100}</span>
-              </TotalPaid>
-              <div
-                onClick={() => (show ? setShow(null) : setShow(order.id))}
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  cursor: "pointer",
-                }}
-              >
-                <AiOutlineDown />
-              </div>
+      <div style={{ overflowY: "scroll", height: "75vh", width: "100%" }}>
+        {myOrders.length > 0 ? (
+          myOrders.map((order) => {
+            return (
+              <ContainerHistoryCard key={order.id}>
+                <p>{moment(order.at_created).format("ddd,MMM D, YYYY")}</p>
+                <TotalPaid>
+                  <p>{order.items_count} items</p>
+                  <span>$ {order.total / 100}</span>
+                </TotalPaid>
+                <div
+                  onClick={() => (show ? setShow(null) : setShow(order.id))}
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    cursor: "pointer",
+                  }}
+                >
+                  <AiOutlineDown />
+                </div>
 
-              {show === order.id ? (
-                <>
-                  <TitleCardHistory>Order</TitleCardHistory>
-                  {order.order_details.map((item) => {
-                    return (
-                      <TotalPaid key={item.id}>
-                        <p>
-                          {item.quantity}- {item.product_name}
-                        </p>
-                        <p>$ {item.subtotal / 100}</p>
-                      </TotalPaid>
-                    );
-                  })}
-                  <hr />
-                  <TitleCardHistory>delivery</TitleCardHistory>
-                  <p>{order.delivery_address}</p>
-                </>
-              ) : null}
-            </ContainerHistoryCard>
-          );
-        })
-      ) : (
-        <NoContent
-          // key={order.id}
-          icon={<RiPagesLine size={105} style={{ fill: colors.gray }} />}
-          text="No histories yet."
-        />
-      )}
+                {show === order.id ? (
+                  <>
+                    <TitleCardHistory>Order</TitleCardHistory>
+                    {order.order_details.map((item) => {
+                      return (
+                        <TotalPaid key={item.id}>
+                          <p>
+                            {item.quantity}- {item.product_name}
+                          </p>
+                          <p>$ {item.subtotal / 100}</p>
+                        </TotalPaid>
+                      );
+                    })}
+                    <hr />
+                    <TitleCardHistory>delivery</TitleCardHistory>
+                    <p>{order.delivery_address}</p>
+                  </>
+                ) : null}
+              </ContainerHistoryCard>
+            );
+          })
+        ) : (
+          <NoContent
+            // key={order.id}
+            icon={<RiPagesLine size={105} style={{ fill: colors.gray }} />}
+            text="No histories yet."
+          />
+        )}
+      </div>
     </div>
   );
 }

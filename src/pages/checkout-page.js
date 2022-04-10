@@ -47,7 +47,14 @@ function CheckoutPage() {
   }
 
   return (
-    <div>
+    <div
+      display={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <h1>Checkout</h1>
       <C.StyledLink to={"/cart"} style={{ alignSelf: "flex-start" }}>
         <AiOutlineLeft />
